@@ -4,7 +4,7 @@ import sys
 import numpy as np
 """
 Created on Thu Jan  7 13:10:26 2016
-Modified by Austin in January and February
+Modified in January and February
 Last modified on Feb 10th
 @author: Sourav, Austin, Sherry
 """
@@ -17,7 +17,7 @@ Data used by Sourav is in the format:
 
 
 The meaning of each part follow:
-packetId, srcIp, desIp, srcPort, desPort, length,time, time
+packetId, srcIp, desIp, srcPort, desPort, length, relative time
 
 
 Austin
@@ -37,16 +37,16 @@ time of 51 ns. So we keep a gap of 10ns which is 20% of the minimum packet
 transmission time.
 
 
-Jan 10th
-Austin
+Mar 5th
 """
 
 
-f = open("simpleData.txt", 'r')
+f = open(sys.argv[1], 'r')
 lines = f.readlines()
 f.close()
 
-f = open('burstInMinute1.txt', 'w')
+f = open(sys.argv[2], 'w')
+
 
 
 delta = 1e-8 # 10 ns as the delta
@@ -151,6 +151,7 @@ for l in lines:  # For every line in the file
         burstSize = pktLen
         burstBeginTime = ts_now
         ts_prev = ts_now
+        len_prev = pktLen
         flowID = {}
         flowID[key] = [1]
         flowID[key].append(pktLen)
